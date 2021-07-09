@@ -55,7 +55,7 @@ class Auth extends MX_Controller
 				$data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			}
 
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'index', $data);
+			$this->_render_page('auth/index', $data);
 		}
 	}
 
@@ -110,7 +110,7 @@ class Auth extends MX_Controller
 				'type' => 'password',
 			];
 
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'login', $data);
+			$this->_render_page('auth/login', $data);
 		}
 	}
 
@@ -176,7 +176,7 @@ class Auth extends MX_Controller
 			];
 
 			// render
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'change_password', $data);
+			$this->_render_page('auth/change_password', $data);
 		}
 		else
 		{
@@ -236,7 +236,7 @@ class Auth extends MX_Controller
 
 			// set any errors and display the form
 			$data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'forgot_password', $data);
+			$this->_render_page('auth/forgot_password', $data);
 		}
 		else
 		{
@@ -329,7 +329,7 @@ class Auth extends MX_Controller
 				$data['code'] = $code;
 
 				// render
-				$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'reset_password', $data);
+				$this->_render_page('auth/reset_password', $data);
 			}
 			else
 			{
@@ -431,7 +431,7 @@ class Auth extends MX_Controller
 			$data['user'] = $this->ion_auth->user($id)->row();
 			$data['identity'] = $this->config->item('identity', 'ion_auth');
 
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'deactivate_user', $data);
+			$this->_render_page('auth/deactivate_user', $data);
 		}
 		else
 		{
@@ -564,7 +564,7 @@ class Auth extends MX_Controller
 				'value' => $this->form_validation->set_value('password_confirm'),
 			];
 
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'create_user', $data);
+			$this->_render_page('auth/create_user', $data);
 		}
 	}
 	/**
@@ -572,7 +572,7 @@ class Auth extends MX_Controller
 	*/
 	public function redirectUser(){
 		if ($this->ion_auth->is_admin()){
-			redirect('auth', 'refresh');
+			redirect('/', 'refresh');
 		}
 		redirect('/', 'refresh');
 	}
@@ -840,7 +840,7 @@ class Auth extends MX_Controller
 			'value' => $this->form_validation->set_value('group_description', $group->description),
 		];
 
-		$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'edit_group', $data);
+		$this->_render_page('auth/edit_group', $data);
 	}
 
 	/**
