@@ -34,8 +34,8 @@ class Auth extends MX_Controller
 		}
 		else if (!$this->ion_auth->is_admin()) // remove this elseif if you want to enable this for non-admins
 		{
-			// redirect them to the home page because they must be an administrator to view this
-			show_error('You must be an administrator to view this page.');
+			// redirect them to members page
+			redirect('auth/members', 'refresh');
 		}
 		else
 		{
@@ -452,7 +452,7 @@ class Auth extends MX_Controller
 			}
 
 			// redirect them back to the auth page
-			redirect('auth', 'refresh');
+			redirect('/', 'refresh');
 		}
 	}
 
@@ -465,7 +465,7 @@ class Auth extends MX_Controller
 
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
 		{
-			redirect('auth', 'refresh');
+			redirect('auth/login', 'refresh');
 		}
 
 		$tables = $this->config->item('tables', 'ion_auth');
@@ -588,7 +588,7 @@ class Auth extends MX_Controller
 
 		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id)))
 		{
-			redirect('auth', 'refresh');
+			redirect('auth/login', 'refresh');
 		}
 
 		$user = $this->ion_auth->user($id)->row();
@@ -729,7 +729,7 @@ class Auth extends MX_Controller
 
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
 		{
-			redirect('auth', 'refresh');
+			redirect('auth/login', 'refresh');
 		}
 
 		// validate form input
@@ -782,14 +782,14 @@ class Auth extends MX_Controller
 		// bail if no group id given
 		if (!$id || empty($id))
 		{
-			redirect('auth', 'refresh');
+			redirect('/', 'refresh');
 		}
 
 		$data['title'] = $this->lang->line('edit_group_title');
 
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
 		{
-			redirect('auth', 'refresh');
+			redirect('auth/login', 'refresh');
 		}
 
 		$group = $this->ion_auth->group($id)->row();
@@ -841,6 +841,15 @@ class Auth extends MX_Controller
 		];
 
 		$this->_render_page('auth/edit_group', $data);
+	}
+
+	/**
+	 * @return members page
+	 */
+	public function members() {
+		$data['title'] = $this->lang->line('members_heading');
+
+		$this->_render_page('auth/members/index', $data);
 	}
 
 	/**
