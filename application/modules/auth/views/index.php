@@ -32,3 +32,7 @@
 	<?php echo anchor('auth/create_user', lang('index_create_user_link'), 'style="text-decoration: none; color: blue;"')?> | 
 	<?php echo anchor('auth/create_group', lang('index_create_group_link'), 'style="text-decoration: none; color: blue;"')?>
 </p>
+
+<p>
+	<?php echo anchor('mpesa', 'M-Pesa', 'style="text-decoration: none; color: blue;"')?> | <?php echo anchor('sms', 'SMS', 'style="text-decoration: none; color: blue;"')?>
+</p>
